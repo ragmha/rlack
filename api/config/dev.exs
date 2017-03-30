@@ -30,4 +30,8 @@ config :rlack, Rlack.Repo,
   hostname: "localhost",
   pool_size: 10
 
+# Configure guardian
+config :guardian, Guardian,
+  secret_key: "f/NiLiMAvatxXnmkSJ1NORcA7dG4Ge5wtcIk+rYG+pfR9JuokpoYu9DrGiYITjqo"
+
 import_config "dev.secret.exs"
