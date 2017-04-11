@@ -27,6 +27,6 @@ defmodule Rlack.Router do
     post "/sessions", SessionController, :create
     delete "/sessions", SessionController, :delete
     post "/sessions/refresh", SessionController, :refresh
-    resources "/users", UserContoller, only: [:create]
+    resources "/users", UserController, only: [:create]
   end
 end

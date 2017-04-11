@@ -38,6 +38,7 @@ defmodule Rlack.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.5"},
      {:guardian, "~> 0.13.0"},
+     {:cors_plug, "~> 1.1"}
    ]
   end
 

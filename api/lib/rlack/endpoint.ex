@@ -36,5 +36,6 @@ defmodule Rlack.Endpoint do
     key: "_rlack_key",
     signing_salt: "/gdGCQab"
 
+  plug CORSPlug
   plug Rlack.Router
 end
