@@ -3,7 +3,7 @@ defmodule Rlack.UserController do
 
   alias Rlack.User
 
-  plug Guardian.Plug.EnsureAuthenticated, handler: Rlack.SessionContoller, only: [:rooms]
+plug Guardian.Plug.EnsureAuthenticated, [handler: Rlack.SessionController] when action in [:rooms]
 
   def create(conn, params) do
     changeset = User.registration_changeset(%User{}, params)

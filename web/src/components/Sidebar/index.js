@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
       textDecoration: 'none',
     },
   },
+
   activeLink: {
     color: '#fff',
     ':after': {
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
     background: 'rgba(255,255,255,.2)',
     borderRadius: '5px',
   },
+
   logoutButton: {
     padding: '0',
     background: 'transparent',
@@ -58,32 +60,27 @@ const styles = StyleSheet.create({
 
 type Room = {
   id: number,
-  name: String,
-};
+  name: string,
+}
 
 type RoomLinkProps = {
-  room: Room,
-};
+  room: Room
+}
 
-const RoomLink = ({ room }: RoomLinkProps) => (
-  <Link
-    to={`/r/${room.id}`}
-    className={css(styles.link)}
-    activeClassName={css(styles.activeLink)}
-  >
+const RoomLink = ({ room }: RoomLinkProps) =>
+  <Link to={`/r/${room.id}`} className={css(styles.link)} activeClassName={css(styles.activeLink)}>
     <div className={css(styles.badge)}>
       <span>{room.name.charAt(0)}</span>
     </div>
-  </Link>
-);
+  </Link>;
 
 type Props = {
   rooms: Array<Room>,
   router: Object,
   onLogoutClick: () => void,
-};
+}
 
-const Sidebar = ({ rooms, router, onLogoutClick }: Props) => (
+const Sidebar = ({ rooms, router, onLogoutClick }: Props) =>
   <div className={css(styles.sidebar)}>
     {rooms.map(room => <RoomLink key={room.id} room={room} />)}
     <Link
@@ -105,7 +102,6 @@ const Sidebar = ({ rooms, router, onLogoutClick }: Props) => (
         <span className="fa fa-sign-out" />
       </div>
     </button>
-  </div>
-);
+  </div>;
 
 export default Sidebar;
