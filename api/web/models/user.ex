@@ -7,6 +7,7 @@ defmodule Rlack.User do
     field :password_hash, :string
     field :password, :string, virtual: true
     many_to_many :rooms, Rlack.Room, join_through: "user_rooms"
+    has_many :messages, Rlack.Message
 
     timestamps()
   end

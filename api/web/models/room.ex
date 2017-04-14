@@ -5,7 +5,8 @@ defmodule Rlack.Room do
     field :name, :string
     field :topic, :string
     many_to_many :users, Rlack.User, join_through: "user_rooms"
-
+    has_many :messages, Rlack.Message
+    
     timestamps()
   end
 
