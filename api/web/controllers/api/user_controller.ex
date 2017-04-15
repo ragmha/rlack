@@ -3,7 +3,7 @@ defmodule Rlack.UserController do
 
   alias Rlack.User
 
-plug Guardian.Plug.EnsureAuthenticated, [handler: Rlack.SessionController] when action in [:rooms]
+  plug Guardian.Plug.EnsureAuthenticated, [handler: Rlack.SessionController] when action in [:rooms]
 
   def create(conn, params) do
     changeset = User.registration_changeset(%User{}, params)
@@ -16,17 +16,18 @@ plug Guardian.Plug.EnsureAuthenticated, [handler: Rlack.SessionController] when 
         new_conn
         |> put_status(:created)
         |> render(Rlack.SessionView, "show.json", user: user, jwt: jwt)
-
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
         |> render(Rlack.ChangesetView, "error.json", changeset: changeset)
-      end
     end
+  end
 
-    def rooms(conn, _params) do
-      current_user = Guardian.Plug.current_resource(conn)
-      rooms = Repo.all(assoc(current_user, :rooms))
-      render(conn, Rlack.RoomView, "index.json", %{rooms: rooms})
-    end
+  def rooms(conn, params) do
+    current_user = Guardian.Plug.current_resource(conn)
+    page =
+      assoc(current_user, :rooms)
+      |> Repo.paginate(params)
+    render(conn, Rlack.RoomView, "index.json", page: page)
+  end
 end

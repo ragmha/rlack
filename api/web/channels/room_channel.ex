@@ -16,14 +16,14 @@ defmodule Rlack.RoomChannel do
       messages: Phoenix.View.render_many(page.entries, Rlack.MessageView, "message.json"),
       pagination: Rlack.PaginationHelpers.pagination(page)
     }
+
     send(self, :after_join)
     {:ok, response, assign(socket, :room, room)}
   end
 
   def handle_info(:after_join, socket) do
     Rlack.Presence.track(socket, socket.assigns.current_user.id, %{
-      user: Phoenix.View.render_one(socket.assigns.current_user, Rlack.UserView,
-      "user.json")
+      user: Phoenix.View.render_one(socket.assigns.current_user, Rlack.UserView, "user.json")
     })
     push(socket, "presence_state", Rlack.Presence.list(socket))
     {:noreply, socket}

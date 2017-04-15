@@ -2,12 +2,13 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { css, StyleSheet } from 'aphrodite';
+import { Room } from '../../types';
 
 const styles = StyleSheet.create({
   sidebar: {
     display: 'flex',
     flexDirection: 'column',
-    background: 'rgb(38,28,37)',
+    background: '#1e2124',
   },
 
   link: {
@@ -47,7 +48,8 @@ const styles = StyleSheet.create({
     margin: '12px auto',
     fontSize: '20px',
     background: 'rgba(255,255,255,.2)',
-    borderRadius: '5px',
+    borderRadius: '25px',
+    backgroundSize: '50px 50px'
   },
 
   logoutButton: {
@@ -57,11 +59,6 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
 });
-
-type Room = {
-  id: number,
-  name: string,
-}
 
 type RoomLinkProps = {
   room: Room

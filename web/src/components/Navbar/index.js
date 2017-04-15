@@ -7,11 +7,12 @@ const styles = StyleSheet.create({
   navbar: {
     display: 'flex',
     alignItems: 'center',
-    padding: '0 1 rem',
+    padding: '0 1rem',
     height: '70px',
     background: '#fff',
     boxShadow: '0 1px 1px rgba(0,0,0,.1)',
   },
+
   link: {
     color: '#555459',
     fontSize: '22px',
@@ -25,10 +26,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Navbar = () => (
+const Navbar = () =>
   <nav className={css(styles.navbar)}>
     <Link to="/" className={css(styles.link)}>Rlack</Link>
-  </nav>
-);
+  </nav>;
 
 export default Navbar;

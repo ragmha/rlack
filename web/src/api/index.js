@@ -21,9 +21,8 @@ function parseResponse(response) {
 
 function queryString(params) {
   const query = Object.keys(params)
-    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
-    .join('&');
-
+                      .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
+                      .join('&');
   return `${query.length ? '?' : ''}${query}`;
 }
 
@@ -32,7 +31,8 @@ export default {
     return fetch(`${API}${url}${queryString(params)}`, {
       method: 'GET',
       headers: headers(),
-    }).then(parseResponse);
+    })
+    .then(parseResponse);
   },
 
   post(url, data) {
@@ -42,7 +42,8 @@ export default {
       method: 'POST',
       headers: headers(),
       body,
-    }).then(parseResponse);
+    })
+    .then(parseResponse);
   },
 
   patch(url, data) {
@@ -52,13 +53,15 @@ export default {
       method: 'PATCH',
       headers: headers(),
       body,
-    }).then(parseResponse);
+    })
+    .then(parseResponse);
   },
 
   delete(url) {
     return fetch(`${API}${url}`, {
       method: 'DELETE',
       headers: headers(),
-    }).then(parseResponse);
+    })
+    .then(parseResponse);
   },
 };

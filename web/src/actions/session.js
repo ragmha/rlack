@@ -1,7 +1,7 @@
 import { reset } from 'redux-form';
 import { Socket } from 'phoenix';
-import { fetchUserRooms } from './rooms';
 import api from '../api';
+import { fetchUserRooms } from './rooms';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const WEBSOCKET_URL = API_URL.replace(/(https|http)/, 'ws').replace('/api', '');
@@ -23,23 +23,32 @@ function setCurrentUser(dispatch, response) {
 }
 
 export function login(data, router) {
-  return dispatch => api.post('/sessions', data).then(response => {
+  return dispatch => api.post('/sessions', data)
+    .then((response) => {
       setCurrentUser(dispatch, response);
       dispatch(reset('login'));
       router.transitionTo('/');
+    })
+    .catch(() => {
+      dispatch({ type: 'SHOW_ALERT', message: 'Invalid email or password' });
     });
 }
 
 export function signup(data, router) {
-  return dispatch => api.post('/users', data).then(response => {
+  return dispatch => api.post('/users', data)
+    .then((response) => {
       setCurrentUser(dispatch, response);
       dispatch(reset('signup'));
       router.transitionTo('/');
+    })
+    .catch((error) => {
+      dispatch({ type: 'SIGNUP_FAILURE', error });
     });
 }
 
 export function logout(router) {
-  return dispatch => api.delete('/sessions').then(() => {
+  return dispatch => api.delete('/sessions')
+    .then(() => {
       localStorage.removeItem('token');
       dispatch({ type: 'LOGOUT' });
       router.transitionTo('/login');
@@ -47,11 +56,10 @@ export function logout(router) {
 }
 
 export function authenticate() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: 'AUTHENTICATION_REQUEST' });
-    return api
-      .post('/sessions/refresh')
-      .then(response => {
+    return api.post('/sessions/refresh')
+      .then((response) => {
         setCurrentUser(dispatch, response);
       })
       .catch(() => {

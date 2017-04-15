@@ -5,27 +5,26 @@ type Props = {
   input: Object,
   label?: string,
   type?: string,
+  meta: Object,
   placeholder?: string,
   style?: Object,
-  meta: Object,
-};
+  inputStyle?: Object,
+  className?: string,
+}
 
-const Input = ({ input, label, type, placeholder, style, meta }: Props) => (
-  <div style={{ magrinBottom: '1rem' }}>
+const Input = ({ input, label, type, placeholder, meta, style, inputStyle, className }: Props) =>
+  <div style={{ ...style }}>
     {label && <label htmlFor={input.name}>{label}</label>}
     <input
       {...input}
       type={type}
       placeholder={placeholder}
-      className="form-control"
-      style={style && style}
+      style={{ ...inputStyle }}
+      className={className || 'form-control'}
     />
-    {meta.touched &&
-      meta.error &&
-      <div style={{ fontsize: '85%', color: 'rgb(255, 59, 48)' }}>
-        {meta.error}
-      </div>}
-  </div>
-);
+    {meta.touched && meta.error &&
+      <div style={{ fontSize: '85%', color: '#cc5454' }}>{meta.error}</div>
+    }
+  </div>;
 
 export default Input;

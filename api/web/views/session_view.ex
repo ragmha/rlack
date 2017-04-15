@@ -12,7 +12,7 @@ defmodule Rlack.SessionView do
     %{error: "Invalid email or password"}
   end
 
-  def render("delete.json",_) do
+  def render("delete.json", _) do
     %{ok: true}
   end
 

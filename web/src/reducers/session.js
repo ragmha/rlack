@@ -3,6 +3,7 @@ const initialState = {
   willAuthenticate: true,
   currentUser: {},
   socket: null,
+  signupErrors: [],
 };
 
 export default function(state = initialState, action) {
@@ -30,12 +31,17 @@ export default function(state = initialState, action) {
         willAuthenticate: false,
         isAuthenticated: false,
         currentUser: {},
-        scoket: null,
+        socket: null,
       };
     case 'SOCKET_CONNECTED':
       return {
         ...state,
         socket: action.socket,
+      };
+    case 'SIGNUP_FAILURE':
+      return {
+        ...state,
+        signupErrors: action.error.errors,
       };
     default:
       return state;

@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
 
 type Props = {
   onSubmit: () => void,
-  submitting: boolean,
   handleSubmit: () => void,
-};
+  submitting: boolean,
+}
 
 class LoginForm extends Component {
-  props: Props;
+  props: Props
 
   handleSubmit = data => this.props.onSubmit(data);
 
@@ -32,22 +32,15 @@ class LoginForm extends Component {
         className={`card ${css(styles.card)}`}
         onSubmit={handleSubmit(this.handleSubmit)}
       >
-        <h3 style={{ marginBottom: '2rem', textAlign: 'center' }}>
-          Login to Rlack
-        </h3>
-        <Field name="email" type="text" component={Input} placeholder="Email" />
-        <Field
-          name="password"
-          type="password"
-          component={Input}
-          placeholder="Password"
-        />
+        <h3 style={{ marginBottom: '2rem', textAlign: 'center' }}>Login to Rlack</h3>
+        <Field name="email" type="text" component={Input} placeholder="Email" style={{ marginBottom: '1rem' }} />
+        <Field name="password" type="password" component={Input} placeholder="Password" style={{ marginBottom: '1rem' }} />
         <button
           type="submit"
           disabled={submitting}
           className="btn btn-block btn-primary"
         >
-          {submitting ? 'Loggin in...' : 'Login'}
+          {submitting ? 'Logging in...' : 'Login'}
         </button>
         <hr style={{ margin: '2rem 0' }} />
         <Link to="/signup" className="btn btn-block btn-secondary">
@@ -58,15 +51,13 @@ class LoginForm extends Component {
   }
 }
 
-const validate = values => {
+const validate = (values) => {
   const errors = {};
   if (!values.email) {
     errors.email = 'Required';
   }
   if (!values.password) {
     errors.password = 'Required';
-  } else if (values.password.length < 6) {
-    errors.password = 'Minimum of 6 characters';
   }
   return errors;
 };

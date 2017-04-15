@@ -5,9 +5,13 @@ defmodule Rlack.RoomController do
 
   plug Guardian.Plug.EnsureAuthenticated, handler: Rlack.SessionController
 
-  def index(conn, _params) do
-    rooms = Repo.all(Room)
-    render(conn, "index.json", rooms: rooms)
+  def index(conn, params) do
+    page =
+      Rlack.Room
+      |> order_by([asc: :id])
+      |> Rlack.Repo.paginate(params)
+
+    render(conn, "index.json", page: page)
   end
 
   def create(conn, params) do
@@ -25,6 +29,22 @@ defmodule Rlack.RoomController do
         conn
         |> put_status(:created)
         |> render("show.json", room: room)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(Rlack.ChangesetView, "error.json", changeset: changeset)
+    end
+  end
+
+  def update(conn, params) do
+    room = Repo.get!(Room, params["id"])
+    changeset = Room.changeset(room, params)
+
+    case Repo.update(changeset) do
+      {:ok, room} ->
+        conn
+        |> put_status(:ok)
+        |> render("show.json", %{room: room})
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
