@@ -19,7 +19,7 @@ defmodule Rlack.Mixfile do
   def application do
     [mod: {Rlack, []},
      applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :comeonin, :scrivener_ecto]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +38,8 @@ defmodule Rlack.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.5"},
      {:guardian, "~> 0.13.0"},
-     {:cors_plug, "~> 1.1"}
+     {:cors_plug, "~> 1.1"},
+     {:scrivener_ecto, "~> 1.0"}
    ]
   end
 
